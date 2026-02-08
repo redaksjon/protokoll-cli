@@ -1,6 +1,6 @@
 {
   "name": "@redaksjon/protokoll-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Command-line interface for Protokoll - thin MCP client",
   "main": "dist/main.js",
   "type": "module",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.25.3",
-    "@redaksjon/protokoll": "file:../protokoll",
+    "@redaksjon/protokoll": "^1.0.12",
     "commander": "^14.0.2",
     "cli-progress": "^3.12.0"
   },
