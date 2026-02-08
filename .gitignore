@@ -1,0 +1,22 @@
+.env
+dist
+node_modules
+*.log
+.vscode
+coverage/
+test/
+output/
+input/
+processed/
+.maloomscan/
+.kodrdriv*
+outdiff
+outlog
+pnpm-workspace.yaml
+package-lock.json
+tsconfig.tsbuildinfo
+tsconfig (1).tsbuildinfo
+*~
+package-lock.json
+.kodrdriv*
+.DS_Store
