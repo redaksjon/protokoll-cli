@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from '../mcp-client.js';
+import { createConfiguredMCPClient } from '../client-factory.js';
 
 /**
  * Register action commands for transcript manipulation
@@ -23,7 +23,7 @@ Examples:
   protokoll action combine 2026/02/*.md --project weekly-review
 `)
         .action(async (files: string[], options: { title?: string; project?: string }) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_combine_transcripts', {
                     transcriptPaths: files,
@@ -66,7 +66,7 @@ Examples:
   protokoll action edit notes.md --status reviewed
 `)
         .action(async (transcriptPath: string, options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_edit_transcript', {
                     transcriptPath,
@@ -104,7 +104,7 @@ Examples:
   protokoll action change-date notes.md 2026-01-15T10:30:00Z
 `)
         .action(async (transcriptPath: string, newDate: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_change_transcript_date', {
                     transcriptPath,
@@ -147,7 +147,7 @@ Examples:
   protokoll action create-note --title "Ideas" --tag brainstorm --tag important
 `)
         .action(async (options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_create_note', {
                     title: options.title,

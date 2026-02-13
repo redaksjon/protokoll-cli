@@ -6,6 +6,8 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 export interface MCPClientOptions {
     serverCommand?: string;
     serverArgs?: string[];
+    workspaceRoot?: string;
+    configDirectory?: string;
 }
 
 export class ProtokolMCPClient {
@@ -25,10 +27,31 @@ export class ProtokolMCPClient {
         }
 
         try {
+            // Build environment variables for the server
+            const env: Record<string, string> = {};
+            
+            // Copy existing env vars
+            for (const [key, value] of Object.entries(process.env)) {
+                if (value !== undefined) {
+                    env[key] = value;
+                }
+            }
+            
+            // Pass workspace root if provided
+            if (this.options.workspaceRoot) {
+                env.WORKSPACE_ROOT = this.options.workspaceRoot;
+            }
+            
+            // Pass config directory if provided
+            if (this.options.configDirectory) {
+                env.PROTOKOLL_CONFIG_DIR = this.options.configDirectory;
+            }
+            
             // Create transport - it will spawn the server process
             this.transport = new StdioClientTransport({
                 command: this.options.serverCommand!,
                 args: this.options.serverArgs,
+                env,
                 stderr: 'inherit',
             });
 
@@ -48,17 +71,24 @@ export class ProtokolMCPClient {
         }
     }
 
-    async callTool(name: string, args: Record<string, unknown> = {}, progressToken?: string) {
+    async callTool(
+        name: string, 
+        args: Record<string, unknown> = {}, 
+        options?: { progressToken?: string; timeout?: number }
+    ) {
         if (!this.client || !this.connected) {
             throw new Error('Client not connected. Call connect() first.');
         }
 
         const params: any = { name, arguments: args };
-        if (progressToken) {
-            params._meta = { progressToken };
+        if (options?.progressToken) {
+            params._meta = { progressToken: options.progressToken };
         }
 
-        return await this.client.callTool(params);
+        // Pass timeout to the request options (default is 60000ms in MCP SDK)
+        const requestOptions = options?.timeout ? { timeout: options.timeout } : undefined;
+        
+        return await this.client.callTool(params, undefined, requestOptions);
     }
 
     async listTools() {

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from '../mcp-client.js';
+import { createConfiguredMCPClient } from '../client-factory.js';
 
 /**
  * Register transcript commands for reading and listing transcripts
@@ -20,7 +20,7 @@ Examples:
   protokoll transcript read 2026/02/03-meeting.md
 `)
         .action(async (transcriptPath: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_read_transcript', {
                     transcriptPath,
@@ -58,7 +58,7 @@ Examples:
   protokoll transcript list --sort title
 `)
         .action(async (options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_list_transcripts', {
                     limit: parseInt(options.limit),

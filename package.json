@@ -38,8 +38,10 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.25.3",
     "@redaksjon/protokoll": "^1.0.12",
+    "@utilarium/cardigantime": "^0.0.26",
+    "cli-progress": "^3.12.0",
     "commander": "^14.0.2",
-    "cli-progress": "^3.12.0"
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

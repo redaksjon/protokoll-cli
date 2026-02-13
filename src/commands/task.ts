@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from '../mcp-client.js';
+import { createConfiguredMCPClient } from '../client-factory.js';
 
 /**
  * Register task commands for managing transcript tasks
@@ -20,7 +20,7 @@ Examples:
   protokoll task add notes/planning.md "Review budget proposal"
 `)
         .action(async (transcriptPath: string, description: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_create_task', {
                     transcriptPath,
@@ -51,7 +51,7 @@ Examples:
   protokoll task complete meeting.md task-1234567890-abc123
 `)
         .action(async (transcriptPath: string, taskId: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_complete_task', {
                     transcriptPath,
@@ -82,7 +82,7 @@ Examples:
   protokoll task delete meeting.md task-1234567890-abc123
 `)
         .action(async (transcriptPath: string, taskId: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_delete_task', {
                     transcriptPath,
