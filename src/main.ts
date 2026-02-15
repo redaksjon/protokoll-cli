@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from './mcp-client.js';
+import { createConfiguredMCPClient, setConfigPath } from './client-factory.js';
 import { registerStatusCommands } from './commands/status.js';
 import { registerTaskCommands } from './commands/task.js';
 import { registerTranscriptCommands } from './commands/transcript.js';
@@ -20,14 +20,22 @@ const GIT_INFO = '__GIT_BRANCH__ __GIT_COMMIT__ __GIT_TAGS__';
 program
     .name('protokoll')
     .description('Protokoll CLI - MCP client for transcription and context management')
-    .version(VERSION);
+    .version(VERSION)
+    .option('-c, --config <path>', 'Path to configuration file (default: protokoll-config.yaml)')
+    .hook('preAction', (thisCommand) => {
+        // Set config path before any action runs
+        const opts = thisCommand.opts();
+        if (opts.config) {
+            setConfigPath(opts.config);
+        }
+    });
 
 // Version command - calls the MCP server's protokoll_get_version tool
 program
     .command('version')
     .description('Show version information from MCP server')
     .action(async () => {
-        const client = await createMCPClient();
+        const client = await createConfiguredMCPClient();
         try {
             const result: any = await client.callTool('protokoll_get_version');
             

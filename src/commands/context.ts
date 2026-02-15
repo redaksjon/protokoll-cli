@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from '../mcp-client.js';
+import { createConfiguredMCPClient } from '../client-factory.js';
 
 /**
  * Register context commands for managing entities (projects, people, terms, companies)
@@ -16,7 +16,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('status')
         .description('Show context system status')
         .action(async () => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_context_status', {});
 
@@ -59,7 +59,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('search <query>')
         .description('Search across all entity types')
         .action(async (query: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_search_context', { query });
 
@@ -98,7 +98,7 @@ export const registerContextCommands = (program: Command): void => {
         .description('List all projects')
         .option('-v, --verbose', 'Show full details')
         .action(async (options: { verbose?: boolean }) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_list_projects', {});
 
@@ -141,7 +141,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('show <id>')
         .description('Show details of a project')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_get_entity', {
                     entityType: 'project',
@@ -172,7 +172,7 @@ export const registerContextCommands = (program: Command): void => {
         .option('--destination <path>', 'Output destination path')
         .option('--structure <type>', 'Directory structure: none, year, month, day')
         .action(async (options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_add_project', {
                     name: options.name,
@@ -201,7 +201,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('delete <id>')
         .description('Delete a project')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_delete_entity', {
                     entityType: 'project',
@@ -235,7 +235,7 @@ export const registerContextCommands = (program: Command): void => {
         .description('List all people')
         .option('-v, --verbose', 'Show full details')
         .action(async (options: { verbose?: boolean }) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_list_people', {});
 
@@ -279,7 +279,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('show <id>')
         .description('Show details of a person')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_get_entity', {
                     entityType: 'person',
@@ -309,7 +309,7 @@ export const registerContextCommands = (program: Command): void => {
         .option('--role <role>', 'Role/title')
         .option('--company <company>', 'Company name')
         .action(async (options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_add_person', {
                     name: options.name,
@@ -337,7 +337,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('delete <id>')
         .description('Delete a person')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_delete_entity', {
                     entityType: 'person',
@@ -371,7 +371,7 @@ export const registerContextCommands = (program: Command): void => {
         .description('List all terms')
         .option('-v, --verbose', 'Show full details')
         .action(async (options: { verbose?: boolean }) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_list_terms', {});
 
@@ -412,7 +412,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('show <id>')
         .description('Show details of a term')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_get_entity', {
                     entityType: 'term',
@@ -443,7 +443,7 @@ export const registerContextCommands = (program: Command): void => {
         .option('--domain <domain>', 'Domain category')
         .option('--description <text>', 'Term description')
         .action(async (options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_add_term', {
                     name: options.name,
@@ -472,7 +472,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('merge <sourceId> <targetId>')
         .description('Merge two terms (combines metadata, deletes source)')
         .action(async (sourceId: string, targetId: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_merge_terms', {
                     sourceId,
@@ -500,7 +500,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('delete <id>')
         .description('Delete a term')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_delete_entity', {
                     entityType: 'term',
@@ -534,7 +534,7 @@ export const registerContextCommands = (program: Command): void => {
         .description('List all companies')
         .option('-v, --verbose', 'Show full details')
         .action(async (options: { verbose?: boolean }) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_list_companies', {});
 
@@ -574,7 +574,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('show <id>')
         .description('Show details of a company')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_get_entity', {
                     entityType: 'company',
@@ -603,7 +603,7 @@ export const registerContextCommands = (program: Command): void => {
         .option('--id <id>', 'Company ID (auto-calculated from name if not provided)')
         .option('--industry <industry>', 'Industry sector')
         .action(async (options: any) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_add_company', {
                     name: options.name,
@@ -630,7 +630,7 @@ export const registerContextCommands = (program: Command): void => {
         .command('delete <id>')
         .description('Delete a company')
         .action(async (id: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_delete_entity', {
                     entityType: 'company',

@@ -1,0 +1,19 @@
+# Protokoll CLI Configuration
+# This file is loaded by CardiganTime and merged with environment variables
+
+# MCP Server settings
+mcpServerCommand: protokoll-mcp
+mcpServerArgs: []
+
+# Directory settings
+inputDirectory: ~/recordings
+outputDirectory: ~/notes
+processedDirectory: ~/processed
+
+# Model settings
+model: gpt-4
+transcriptionModel: whisper-1
+
+# Debug settings
+debug: false
+verbose: false

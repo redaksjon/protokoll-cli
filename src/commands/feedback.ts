@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from '../mcp-client.js';
+import { createConfiguredMCPClient } from '../client-factory.js';
 
 /**
  * Register feedback commands for natural language transcript corrections
@@ -22,7 +22,7 @@ Examples:
   protokoll feedback notes.md "Add 'kubernetes' as a technical term"
 `)
         .action(async (transcriptPath: string, feedback: string, options: { model?: string }) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 console.log('Processing feedback...');
                 

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { Command } from 'commander';
-import { createMCPClient } from '../mcp-client.js';
+import { createConfiguredMCPClient } from '../client-factory.js';
 
 /**
  * Register status commands for transcript lifecycle management
@@ -23,7 +23,7 @@ Examples:
   protokoll status set ~/notes/planning.md in_progress
 `)
         .action(async (transcriptPath: string, newStatus: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_set_status', {
                     transcriptPath,
@@ -53,7 +53,7 @@ Examples:
         .command('show <transcriptPath>')
         .description('Show the current status of a transcript')
         .action(async (transcriptPath: string) => {
-            const client = await createMCPClient();
+            const client = await createConfiguredMCPClient();
             try {
                 const result: any = await client.callTool('protokoll_read_transcript', {
                     transcriptPath,
