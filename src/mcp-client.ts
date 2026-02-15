@@ -141,7 +141,7 @@ export class ProtokolMCPClient {
         if (this.client) {
             try {
                 await this.client.close();
-            } catch (_error) {
+            } catch {
                 // Ignore cleanup errors
             }
             this.client = null;
@@ -150,7 +150,7 @@ export class ProtokolMCPClient {
         if (this.transport) {
             try {
                 await this.transport.close();
-            } catch (_error) {
+            } catch {
                 // Ignore cleanup errors
             }
             this.transport = null;
