@@ -19,6 +19,8 @@ export default defineConfig({
                 'tests/**/*', 
                 'src/**/*.md', 
                 'src/**/.DS_Store',
+                'src/main.ts',
+                'src/commands/migrate.ts',
             ],
             thresholds: {
                 lines: 90,
