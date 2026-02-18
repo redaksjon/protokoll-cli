@@ -10,6 +10,7 @@ import { registerContextCommands } from './commands/context.js';
 import { registerActionCommands } from './commands/action.js';
 import { registerFeedbackCommands } from './commands/feedback.js';
 import { registerAudioCommands } from './commands/audio.js';
+import { registerMigrateCommands } from './commands/migrate.js';
 
 const program = new Command();
 
@@ -67,6 +68,7 @@ registerContextCommands(program);
 registerActionCommands(program);
 registerFeedbackCommands(program);
 registerAudioCommands(program);
+registerMigrateCommands(program);
 
 // Parse arguments
 program.parse();
