@@ -1,6 +1,6 @@
 {
   "name": "@redaksjon/protokoll-cli",
-  "version": "0.1.6",
+  "version": "0.1.7-dev.0",
   "description": "Command-line interface for Protokoll - thin MCP client",
   "main": "dist/main.js",
   "type": "module",
