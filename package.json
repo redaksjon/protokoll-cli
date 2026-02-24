@@ -37,8 +37,8 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.25.3",
-    "@redaksjon/protokoll": "^1.0.19",
-    "@redaksjon/protokoll-format": "^0.1.5",
+    "@redaksjon/protokoll": "^1.0.20",
+    "@redaksjon/protokoll-format": "^0.1.6",
     "@utilarium/cardigantime": "^0.0.27",
     "cli-progress": "^3.12.0",
     "commander": "^14.0.2",
